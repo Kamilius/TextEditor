@@ -107,5 +107,35 @@ namespace TextDocumentEditor
                 }
             }
         }
+        
+        //Additions
+        
+        private void CreateNew_Click(object sender, EventArgs e)
+        {
+            childDialogs.Add(new InnerForm(this));
+            childDialogs[childDialogs.Count - 1].Show();
+        }
+
+        private void Open_Click(object sender, EventArgs e)
+        {
+            if (openFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK &&
+                openFileDialog.FileName.Length > 0)
+            {
+                childDialogs.Add(new InnerForm(this));
+                childDialogs[childDialogs.Count - 1].Show();
+
+                switch (saveFileDialog.FilterIndex)
+                {
+                    case 1:
+                        childDialogs[childDialogs.Count - 1].OpenFile(openFileDialog.FileName, RichTextBoxStreamType.PlainText);
+                        break;
+
+                    case 2:
+                        childDialogs[childDialogs.Count - 1].OpenFile(openFileDialog.FileName, RichTextBoxStreamType.RichText);
+                        break;
+                }
+            }
+        }
+        
     }
 }
